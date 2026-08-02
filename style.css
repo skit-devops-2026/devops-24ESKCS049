@@ -39,7 +39,6 @@
     --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     
-    --header-height: 140px;
     --nav-height: 56px;
 }
 
@@ -83,6 +82,7 @@ body {
     font-family: var(--font-body);
     line-height: 1.6;
     overflow-x: hidden;
+    width: 100%;
     transition: background-color var(--transition-normal), color var(--transition-normal);
 }
 
@@ -212,22 +212,57 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   LOGO & BRANDING SECTION
+   LOGO & BRANDING SECTION (PERFECTLY CENTERED, RESPONSIVE, EQUAL SPACING)
    ========================================================================== */
 .logo-section {
     padding: 24px 0;
     background-color: var(--bg-primary);
     border-bottom: 1px solid var(--border-color);
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 8px;
+    width: 100%;
     transition: background-color var(--transition-normal), border-color var(--transition-normal);
 }
 
-.site-logo {
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.logo-brand-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    text-decoration: none;
+}
+
+.header-site-logo-img {
+    height: 64px;
+    width: 64px;
+    object-fit: contain;
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition-fast);
+}
+
+.logo-brand-link:hover .header-site-logo-img {
+    transform: scale(1.05);
+}
+
+.brand-text-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+}
+
+.site-logo-text {
     font-family: var(--font-heading);
-    font-size: 3rem;
+    font-size: 2.8rem;
     font-weight: 800;
     letter-spacing: -0.02em;
     text-transform: uppercase;
@@ -239,9 +274,10 @@ button, input, select, textarea {
     font-family: var(--font-body);
     font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.25em;
     color: var(--text-muted);
     font-weight: 500;
+    margin-top: 4px;
 }
 
 /* ==========================================================================
@@ -317,12 +353,13 @@ button, input, select, textarea {
 
 .nav-item-link {
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
     padding: 6px 0;
     position: relative;
     cursor: pointer;
+    color: var(--text-secondary);
 }
 
 .nav-item-link::after {
@@ -543,45 +580,6 @@ button, input, select, textarea {
     color: var(--accent-color);
 }
 
-.menu-grid-links span.active {
-    color: var(--accent-color);
-    font-weight: 700;
-}
-
-/* Submenu section */
-.mega-submenu {
-    background-color: var(--bg-secondary);
-    padding: 16px;
-    border-radius: var(--border-radius-md);
-    border: 1px solid var(--border-color);
-}
-
-.mega-submenu-title {
-    font-size: 0.8rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--text-muted);
-    margin-bottom: 12px;
-}
-
-.mega-submenu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px 16px;
-}
-
-.mega-submenu-grid p {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-    cursor: pointer;
-    transition: color var(--transition-fast);
-}
-
-.mega-submenu-grid p:hover {
-    color: var(--accent-color);
-}
-
 .mega-menu-right {
     border-left: 1px solid var(--border-color);
     padding-left: 40px;
@@ -602,11 +600,6 @@ button, input, select, textarea {
 
 .mega-menu-right-item:hover {
     color: var(--accent-color);
-}
-
-.mega-menu-right hr {
-    border: 0;
-    border-top: 1px solid var(--border-color);
 }
 
 /* Bookmarks Dropdown List */
@@ -755,6 +748,7 @@ button, input, select, textarea {
     border-radius: var(--border-radius-lg);
     box-shadow: var(--shadow-md);
     position: relative;
+    background-color: var(--bg-tertiary);
 }
 
 .hero-main-img-wrapper img {
@@ -890,6 +884,7 @@ button, input, select, textarea {
     font-family: var(--font-heading);
     font-size: 1.8rem;
     font-weight: 700;
+    text-transform: capitalize;
 }
 
 .cards-grid {
@@ -1158,133 +1153,6 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   AUTHENTICATION & SUBSCRIPTION (AUTH PAGES AND PAYMENTS)
-   ========================================================================== */
-.auth-body {
-    background-color: var(--bg-secondary);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-.auth-card-wrapper {
-    background-color: var(--bg-primary);
-    border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-xl);
-    border: 1px solid var(--border-color);
-    width: 100%;
-    max-width: 420px;
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-}
-
-.auth-card-header {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.auth-card-title {
-    font-family: var(--font-heading);
-    font-size: 1.8rem;
-    font-weight: 700;
-}
-
-.auth-card-tagline {
-    font-size: 0.9rem;
-    color: var(--text-muted);
-}
-
-.auth-form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.auth-label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-secondary);
-}
-
-.auth-input-field {
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius-md);
-    padding: 12px 16px;
-    background-color: var(--bg-secondary);
-    color: var(--text-primary);
-    transition: border-color var(--transition-fast);
-}
-
-.auth-input-field:focus {
-    border-color: var(--accent-color);
-}
-
-.password-strength-meter {
-    height: 4px;
-    border-radius: 2px;
-    background-color: var(--border-color);
-    margin-top: 6px;
-    overflow: hidden;
-}
-
-.password-strength-fill {
-    height: 100%;
-    width: 0%;
-    transition: width var(--transition-fast), background-color var(--transition-fast);
-}
-
-.btn-auth-action {
-    background-color: var(--accent-color);
-    color: #ffffff;
-    font-weight: 700;
-    padding: 14px;
-    border-radius: var(--border-radius-md);
-    cursor: pointer;
-    text-align: center;
-    transition: background-color var(--transition-fast);
-}
-
-.btn-auth-action:hover {
-    background-color: var(--accent-hover);
-}
-
-.auth-footer-redirect {
-    text-align: center;
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-}
-
-.auth-footer-redirect a {
-    color: var(--accent-color);
-    font-weight: 600;
-}
-
-.auth-footer-redirect a:hover {
-    text-decoration: underline;
-}
-
-/* Payment premium badge design */
-.payment-price-card {
-    background-color: var(--bg-secondary);
-    border: 1px dashed var(--accent-color);
-    padding: 16px;
-    border-radius: var(--border-radius-md);
-    text-align: center;
-    margin-bottom: 16px;
-}
-
-.payment-price-text {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--accent-color);
-}
-
-/* ==========================================================================
    TOAST NOTIFICATIONS
    ========================================================================== */
 .toast-container {
@@ -1480,17 +1348,27 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   RESPONSIVE DESIGN (MEDIA QUERIES)
+   RESPONSIVE DESIGN (MEDIA QUERIES FOR ALL SCREEN BREAKPOINTS: 320px to 4K)
    ========================================================================== */
 
+/* 4K Screens (2560px+) */
+@media (min-width: 2560px) {
+    .container {
+        max-width: 1800px;
+    }
+    .cards-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
 /* 1440px + High Res Screens */
-@media (min-width: 1440px) {
+@media (min-width: 1440px) and (max-width: 2559px) {
     .container {
         max-width: 1380px;
     }
 }
 
-/* 1024px (Large Tablets & Small Laptops) */
+/* 1024px (Large Tablets & Laptops) */
 @media (max-width: 1024px) {
     .hero-grid {
         grid-template-columns: 1fr;
@@ -1506,24 +1384,33 @@ button, input, select, textarea {
     }
 }
 
-/* 768px (Tablets) */
+/* 768px (Tablets & Mobile Landscape) */
 @media (max-width: 768px) {
     .logo-section {
         padding: 16px 0;
     }
     
-    .site-logo {
+    .header-site-logo-img {
+        height: 52px;
+        width: 52px;
+    }
+    
+    .site-logo-text {
         font-size: 2.2rem;
     }
     
     .nav-links-list {
-        display: none; /* Hide top categories, accessed via Mega Menu */
+        display: none; /* Collapsed desktop links, accessed via hamburger menu */
     }
     
     .top-bar-inner {
         flex-direction: column;
         gap: 8px;
         text-align: center;
+    }
+    
+    .hero-main-img-wrapper {
+        height: 280px;
     }
 }
 
@@ -1534,7 +1421,7 @@ button, input, select, textarea {
     }
     
     .hero-main-title {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
     
     .footer-inner-grid {
@@ -1546,16 +1433,44 @@ button, input, select, textarea {
         gap: 12px;
         text-align: center;
     }
+    
+    .logo-brand-link {
+        gap: 10px;
+    }
+    
+    .header-site-logo-img {
+        height: 44px;
+        width: 44px;
+    }
+    
+    .site-logo-text {
+        font-size: 1.8rem;
+    }
+    
+    .site-tagline {
+        font-size: 0.65rem;
+        letter-spacing: 0.15em;
+    }
 }
 
 /* 375px & 320px (Mobile Small) */
 @media (max-width: 375px) {
-    .site-logo {
-        font-size: 1.8rem;
-    }
-    
     .top-left-group {
         flex-direction: column;
         gap: 4px;
+    }
+    
+    .logo-brand-link {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .brand-text-block {
+        align-items: center;
+        text-align: center;
+    }
+    
+    .site-logo-text {
+        font-size: 1.6rem;
     }
 }

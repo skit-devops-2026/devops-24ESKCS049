@@ -12,8 +12,8 @@
     <meta property="og:title" content="News Daily - Latest & Breaking News Headlines">
     <meta property="og:description" content="Read real-time verified breaking news, top global stories, trends, and analytical reports on News Daily.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="http://localhost:8080">
     
+    <link rel="icon" type="image/jpg" href="logo.jpg">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -37,10 +37,17 @@
         </div>
     </header>
 
-    <!-- ===== LOGO SECTION ===== -->
+    <!-- ===== LOGO & BRANDING SECTION ===== -->
     <section class="logo-section">
-        <h1 class="site-logo">NEWS DAILY</h1>
-        <p class="site-tagline">Veracity. Transparency. Reliability.</p>
+        <div class="container logo-container">
+            <a href="index.html" class="logo-brand-link">
+                <img src="logo.jpg" alt="News Daily Logo" class="header-site-logo-img" id="siteLogoImg">
+                <div class="brand-text-block">
+                    <h1 class="site-logo-text">NEWS DAILY</h1>
+                    <p class="site-tagline">Veracity. Transparency. Reliability.</p>
+                </div>
+            </a>
+        </div>
     </section>
 
     <!-- ===== STICKY NAV & SEARCH SECTION ===== -->
@@ -53,22 +60,24 @@
 
             <!-- Horizontal Desktop categories -->
             <ul class="nav-links-list" id="navLinksList">
-                <li class="nav-item-link active" onclick="onNavItemClick('India')">Home</li>
-                <li class="nav-item-link" onclick="onNavItemClick('World')">World</li>
-                <li class="nav-item-link" onclick="onNavItemClick('Business')">Business</li>
-                <li class="nav-item-link" onclick="onNavItemClick('Technology')">Technology</li>
-                <li class="nav-item-link" onclick="onNavItemClick('Science')">Science</li>
-                <li class="nav-item-link" onclick="onNavItemClick('Sports')">Sports</li>
+                <li class="nav-item-link active" onclick="onNavItemClick('general')">Home</li>
+                <li class="nav-item-link" onclick="onNavItemClick('world')">World</li>
+                <li class="nav-item-link" onclick="onNavItemClick('business')">Business</li>
+                <li class="nav-item-link" onclick="onNavItemClick('technology')">Technology</li>
+                <li class="nav-item-link" onclick="onNavItemClick('science')">Science</li>
+                <li class="nav-item-link" onclick="onNavItemClick('sports')">Sports</li>
+                <li class="nav-item-link" onclick="onNavItemClick('entertainment')">Entertainment</li>
+                <li class="nav-item-link" onclick="onNavItemClick('health')">Health</li>
             </ul>
 
             <div class="nav-right-controls">
-                <!-- Bookmarks button -->
-                <button id="bookmarksBtn" class="bookmarks-dropdown-trigger" aria-label="View Bookmarks">
-                    🔖
+                <!-- Bookmarks / Notification button -->
+                <button id="bookmarksBtn" class="bookmarks-dropdown-trigger" aria-label="View Bookmarks" title="Bookmarks & Alerts">
+                    🔔
                     <span id="bookmarksCount" class="bookmarks-badge">0</span>
                 </button>
                 <!-- Theme Toggle Button -->
-                <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle dark mode">🌙</button>
+                <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle dark mode" title="Toggle Theme">🌙</button>
             </div>
 
             <!-- Search Dropdown Box -->
@@ -83,7 +92,7 @@
 
             <!-- Bookmarks Dropdown List -->
             <div id="bookmarksPanel" class="bookmarks-panel">
-                <div class="bookmarks-panel-header">Bookmarked Articles</div>
+                <div class="bookmarks-panel-header">Bookmarked Articles & Notifications</div>
                 <ul id="bookmarksList" class="bookmarks-list">
                     <li class="bookmark-empty">No bookmarked articles yet</li>
                 </ul>
@@ -98,37 +107,19 @@
                             <span style="font-weight: 700;">Explore Categories</span>
                         </div>
                         <div class="menu-grid-links">
-                            <span onclick="onNavItemClick('Politics')">Politics</span>
-                            <span onclick="onNavItemClick('Economy')">Economy</span>
-                            <span onclick="onNavItemClick('Markets')">Markets</span>
-                            <span onclick="onNavItemClick('Startup')">Startups</span>
-                            <span onclick="onNavItemClick('Automobile')">Automobiles</span>
-                            <span onclick="onNavItemClick('Gadgets')">Gadgets</span>
-                            <span onclick="onNavItemClick('Gaming')">Gaming</span>
-                            <span onclick="onNavItemClick('Space')">Space</span>
-                            <span onclick="onNavItemClick('Environment')">Environment</span>
-                            <span onclick="onNavItemClick('Health')">Health</span>
-                            <span onclick="onNavItemClick('Books')">Books</span>
-                            <span onclick="onNavItemClick('Travel')">Travel</span>
-                        </div>
-                        <div class="mega-submenu">
-                            <div class="mega-submenu-title">Life & Style</div>
-                            <div class="mega-submenu-grid">
-                                <p onclick="onNavItemClick('Fitness')">Fitness</p>
-                                <p onclick="onNavItemClick('Fashion')">Fashion</p>
-                                <p onclick="onNavItemClick('Food')">Food & Cuisine</p>
-                                <p onclick="onNavItemClick('Design')">Interior Design</p>
-                            </div>
+                            <span onclick="onNavItemClick('general')">General</span>
+                            <span onclick="onNavItemClick('business')">Business & Markets</span>
+                            <span onclick="onNavItemClick('technology')">Technology</span>
+                            <span onclick="onNavItemClick('science')">Science & Space</span>
+                            <span onclick="onNavItemClick('sports')">Sports</span>
+                            <span onclick="onNavItemClick('entertainment')">Entertainment</span>
+                            <span onclick="onNavItemClick('health')">Health & Fitness</span>
                         </div>
                     </div>
                     <div class="mega-menu-right">
-                        <div class="mega-menu-right-item" onclick="onNavItemClick('Videos')">▶ Videos</div>
-                        <div class="mega-menu-right-item" onclick="onNavItemClick('Podcast')">🎧 Podcasts</div>
-                        <div class="mega-menu-right-item" onclick="onNavItemClick('Photos')">🖼 Photos</div>
-                        <div class="mega-menu-right-item" onclick="onNavItemClick('Lifestyle')">👁 Visual Stories</div>
-                        <hr>
+                        <div class="mega-menu-right-item" onclick="onNavItemClick('entertainment')">▶ Videos & Media</div>
+                        <div class="mega-menu-right-item" onclick="onNavItemClick('technology')">🎧 Podcasts</div>
                         <div class="mega-menu-right-item" onclick="handleEpaperClick()">📚 eBooks</div>
-                        <div class="mega-menu-right-item" onclick="onNavItemClick('Puzzles')">🎮 TH Games</div>
                         <div class="mega-menu-right-item" onclick="handleSubscribeAlert()">📩 Newsletters</div>
                     </div>
                 </div>
@@ -142,8 +133,7 @@
             <span class="breaking-label">Breaking News</span>
             <div class="breaking-slider-container">
                 <div id="breakingSlider" class="breaking-slider">
-                    <!-- Dynamic breaking news slides will load here -->
-                    <div class="breaking-slide" onclick="onNavItemClick('Global')">Loading breaking alerts...</div>
+                    <div class="breaking-slide" onclick="onNavItemClick('general')">Loading latest breaking alerts...</div>
                 </div>
             </div>
         </div>
@@ -160,15 +150,14 @@
                         <img src="logo.jpg" alt="Featured News Image" id="heroMainImg" loading="eager">
                     </div>
                     <span id="heroMainMeta" class="hero-main-meta">News Daily · Loading...</span>
-                    <h2 id="heroMainTitle" class="hero-main-title">Please login and subscribe to access the complete feed.</h2>
-                    <p id="heroMainDesc" class="hero-main-desc">Unlock premium analytical coverage, global breaking news, and local columns instantly.</p>
+                    <h2 id="heroMainTitle" class="hero-main-title">Loading today's top featured story...</h2>
+                    <p id="heroMainDesc" class="hero-main-desc">Read analytical coverage, global stories, and local news columns.</p>
                 </article>
 
                 <!-- Trending Sidebar Panel -->
                 <aside class="hero-sidebar" aria-label="Trending News">
                     <h3 class="sidebar-title">⚡ Trending Now</h3>
                     <div id="trendingList" class="trending-list">
-                        <!-- Loaded dynamically -->
                         <div class="trending-item">
                             <span class="trending-rank">01</span>
                             <div class="trending-details">
@@ -250,12 +239,12 @@
             <div class="footer-nav-column">
                 <h4 class="footer-column-title">Categories</h4>
                 <ul class="footer-links-list">
-                    <li><a href="#" onclick="onNavItemClick('India')">Home</a></li>
-                    <li><a href="#" onclick="onNavItemClick('World')">World News</a></li>
-                    <li><a href="#" onclick="onNavItemClick('Business')">Business</a></li>
-                    <li><a href="#" onclick="onNavItemClick('Technology')">Technology</a></li>
-                    <li><a href="#" onclick="onNavItemClick('Science')">Science</a></li>
-                    <li><a href="#" onclick="onNavItemClick('Sports')">Sports</a></li>
+                    <li><a href="#" onclick="onNavItemClick('general')">Home</a></li>
+                    <li><a href="#" onclick="onNavItemClick('world')">World News</a></li>
+                    <li><a href="#" onclick="onNavItemClick('business')">Business</a></li>
+                    <li><a href="#" onclick="onNavItemClick('technology')">Technology</a></li>
+                    <li><a href="#" onclick="onNavItemClick('science')">Science</a></li>
+                    <li><a href="#" onclick="onNavItemClick('sports')">Sports</a></li>
                 </ul>
             </div>
             <div class="footer-nav-column">
@@ -303,19 +292,15 @@
                     </div>
                     <div class="card-meta-row-2">
                         <div class="card-actions-group">
-                            <!-- Like button -->
                             <button class="card-action-btn like-btn" aria-label="Like article">
                                 ❤️ <span class="likes-counter">0</span>
                             </button>
-                            <!-- Bookmark button -->
                             <button class="card-action-btn bookmark-btn" aria-label="Bookmark article">
                                 🔖
                             </button>
-                            <!-- Copy Link button -->
                             <button class="card-action-btn copy-btn" aria-label="Copy link">
                                 🔗
                             </button>
-                            <!-- Share button -->
                             <button class="card-action-btn share-btn" aria-label="Share article">
                                 📤
                             </button>
