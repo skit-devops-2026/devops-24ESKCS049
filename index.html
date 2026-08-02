@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Daily - Latest & Breaking News Headlines</title>
+    <meta name="description" content="Read real-time verified breaking news, top global stories, trends, and analytical reports on News Daily.">
+    <meta name="keywords" content="news, breaking news, latest news, politics, sports, entertainment, technology, science">
+    
+    <!-- Open Graph tags for SEO -->
+    <meta property="og:title" content="News Daily - Latest & Breaking News Headlines">
+    <meta property="og:description" content="Read real-time verified breaking news, top global stories, trends, and analytical reports on News Daily.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://localhost:8080">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress-container">
+        <div id="readingProgress" class="reading-progress-bar"></div>
+    </div>
+
+    <!-- ===== TOP INFO BAR ===== -->
+    <header class="top-bar">
+        <div class="container top-bar-inner">
+            <div class="top-left-group">
+                <span id="current-date" class="current-date"></span>
+                <span class="epaper-link" onclick="handleEpaperClick()">e-Paper</span>
+            </div>
+            <div class="top-right-group">
+                <span id="userStatusLink" class="auth-nav-link" onclick="handleAuthAction()">Login</span>
+                <button id="subscribeBtn" class="btn-subscribe">SUBSCRIBE</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== LOGO SECTION ===== -->
+    <section class="logo-section">
+        <h1 class="site-logo">NEWS DAILY</h1>
+        <p class="site-tagline">Veracity. Transparency. Reliability.</p>
+    </section>
+
+    <!-- ===== STICKY NAV & SEARCH SECTION ===== -->
+    <div class="sticky-nav-wrapper" id="stickyNavWrapper">
+        <nav class="container category-nav" aria-label="Main Navigation">
+            <div class="nav-left-controls">
+                <button id="menuIcon" class="menu-toggle-btn" aria-label="Toggle menu" aria-expanded="false">☰</button>
+                <button id="search-icon" class="nav-search-trigger" aria-label="Search articles">🔍</button>
+            </div>
+
+            <!-- Horizontal Desktop categories -->
+            <ul class="nav-links-list" id="navLinksList">
+                <li class="nav-item-link active" onclick="onNavItemClick('India')">Home</li>
+                <li class="nav-item-link" onclick="onNavItemClick('World')">World</li>
+                <li class="nav-item-link" onclick="onNavItemClick('Business')">Business</li>
+                <li class="nav-item-link" onclick="onNavItemClick('Technology')">Technology</li>
+                <li class="nav-item-link" onclick="onNavItemClick('Science')">Science</li>
+                <li class="nav-item-link" onclick="onNavItemClick('Sports')">Sports</li>
+            </ul>
+
+            <div class="nav-right-controls">
+                <!-- Bookmarks button -->
+                <button id="bookmarksBtn" class="bookmarks-dropdown-trigger" aria-label="View Bookmarks">
+                    🔖
+                    <span id="bookmarksCount" class="bookmarks-badge">0</span>
+                </button>
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle dark mode">🌙</button>
+            </div>
+
+            <!-- Search Dropdown Box -->
+            <div id="searchOverlay" class="search-overlay-container">
+                <div class="search-input-wrapper">
+                    <input type="text" id="searchText" class="search-bar-input" placeholder="Search news topics, terms, keywords..." autocomplete="off">
+                    <button id="searchButton" class="btn-search-exec">Search</button>
+                </div>
+                <!-- Search Suggestions Dropdown -->
+                <div id="suggestionsBox" class="search-suggestions-box"></div>
+            </div>
+
+            <!-- Bookmarks Dropdown List -->
+            <div id="bookmarksPanel" class="bookmarks-panel">
+                <div class="bookmarks-panel-header">Bookmarked Articles</div>
+                <ul id="bookmarksList" class="bookmarks-list">
+                    <li class="bookmark-empty">No bookmarked articles yet</li>
+                </ul>
+            </div>
+
+            <!-- Mega Menu -->
+            <div id="megaMenu" class="mega-menu">
+                <div class="container mega-menu-inner">
+                    <div class="mega-menu-left">
+                        <div class="menu-grid-header">
+                            <span class="live-indicator">● LIVE NOW</span>
+                            <span style="font-weight: 700;">Explore Categories</span>
+                        </div>
+                        <div class="menu-grid-links">
+                            <span onclick="onNavItemClick('Politics')">Politics</span>
+                            <span onclick="onNavItemClick('Economy')">Economy</span>
+                            <span onclick="onNavItemClick('Markets')">Markets</span>
+                            <span onclick="onNavItemClick('Startup')">Startups</span>
+                            <span onclick="onNavItemClick('Automobile')">Automobiles</span>
+                            <span onclick="onNavItemClick('Gadgets')">Gadgets</span>
+                            <span onclick="onNavItemClick('Gaming')">Gaming</span>
+                            <span onclick="onNavItemClick('Space')">Space</span>
+                            <span onclick="onNavItemClick('Environment')">Environment</span>
+                            <span onclick="onNavItemClick('Health')">Health</span>
+                            <span onclick="onNavItemClick('Books')">Books</span>
+                            <span onclick="onNavItemClick('Travel')">Travel</span>
+                        </div>
+                        <div class="mega-submenu">
+                            <div class="mega-submenu-title">Life & Style</div>
+                            <div class="mega-submenu-grid">
+                                <p onclick="onNavItemClick('Fitness')">Fitness</p>
+                                <p onclick="onNavItemClick('Fashion')">Fashion</p>
+                                <p onclick="onNavItemClick('Food')">Food & Cuisine</p>
+                                <p onclick="onNavItemClick('Design')">Interior Design</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mega-menu-right">
+                        <div class="mega-menu-right-item" onclick="onNavItemClick('Videos')">▶ Videos</div>
+                        <div class="mega-menu-right-item" onclick="onNavItemClick('Podcast')">🎧 Podcasts</div>
+                        <div class="mega-menu-right-item" onclick="onNavItemClick('Photos')">🖼 Photos</div>
+                        <div class="mega-menu-right-item" onclick="onNavItemClick('Lifestyle')">👁 Visual Stories</div>
+                        <hr>
+                        <div class="mega-menu-right-item" onclick="handleEpaperClick()">📚 eBooks</div>
+                        <div class="mega-menu-right-item" onclick="onNavItemClick('Puzzles')">🎮 TH Games</div>
+                        <div class="mega-menu-right-item" onclick="handleSubscribeAlert()">📩 Newsletters</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <!-- ===== BREAKING NEWS TICKER ===== -->
+    <section class="breaking-news-bar" aria-label="Breaking News">
+        <div class="container breaking-news-inner">
+            <span class="breaking-label">Breaking News</span>
+            <div class="breaking-slider-container">
+                <div id="breakingSlider" class="breaking-slider">
+                    <!-- Dynamic breaking news slides will load here -->
+                    <div class="breaking-slide" onclick="onNavItemClick('Global')">Loading breaking alerts...</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== HERO SECTION (MAIN FEATURED & TRENDING SIDEBAR) ===== -->
+    <main>
+        <section class="hero-news-section">
+            <div class="container hero-grid">
+                <!-- Main Featured Large Article Card -->
+                <article id="heroMainCard" class="hero-main-card">
+                    <div class="hero-main-img-wrapper">
+                        <span class="hero-tag">FEATURED</span>
+                        <img src="logo.jpg" alt="Featured News Image" id="heroMainImg" loading="eager">
+                    </div>
+                    <span id="heroMainMeta" class="hero-main-meta">News Daily · Loading...</span>
+                    <h2 id="heroMainTitle" class="hero-main-title">Please login and subscribe to access the complete feed.</h2>
+                    <p id="heroMainDesc" class="hero-main-desc">Unlock premium analytical coverage, global breaking news, and local columns instantly.</p>
+                </article>
+
+                <!-- Trending Sidebar Panel -->
+                <aside class="hero-sidebar" aria-label="Trending News">
+                    <h3 class="sidebar-title">⚡ Trending Now</h3>
+                    <div id="trendingList" class="trending-list">
+                        <!-- Loaded dynamically -->
+                        <div class="trending-item">
+                            <span class="trending-rank">01</span>
+                            <div class="trending-details">
+                                <span class="trending-item-title">Loading trending headlines...</span>
+                                <span class="trending-item-meta">News Daily</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </section>
+
+        <!-- ===== MAIN CARD FEED SECTION ===== -->
+        <section class="main-news-section" aria-label="Latest News Grid">
+            <div class="container">
+                <div class="section-header-block">
+                    <h3 id="feedCategoryTitle" class="section-main-title">Latest Headlines</h3>
+                </div>
+                
+                <!-- Skeleton loader shown during fetch -->
+                <div id="skeletonContainer" class="cards-grid" style="display: none;">
+                    <div class="skeleton-card">
+                        <div class="skeleton-img"></div>
+                        <div class="skeleton-content">
+                            <div class="skeleton-line title"></div>
+                            <div class="skeleton-line desc"></div>
+                            <div class="skeleton-line desc-short"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton-img"></div>
+                        <div class="skeleton-content">
+                            <div class="skeleton-line title"></div>
+                            <div class="skeleton-line desc"></div>
+                            <div class="skeleton-line desc-short"></div>
+                        </div>
+                    </div>
+                    <div class="skeleton-card">
+                        <div class="skeleton-img"></div>
+                        <div class="skeleton-content">
+                            <div class="skeleton-line title"></div>
+                            <div class="skeleton-line desc"></div>
+                            <div class="skeleton-line desc-short"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Live cards feed grid -->
+                <div class="cards-grid" id="cards-container">
+                    <!-- Cards injected by bindData -->
+                </div>
+
+                <!-- Offline/Error Fallback banner -->
+                <div id="errorContainer" class="error-fallback-panel" style="display: none;">
+                    <span class="error-fallback-icon">⚠️</span>
+                    <h4 class="error-fallback-title">Something went wrong</h4>
+                    <p id="errorMessage" class="error-fallback-desc">We couldn't load the articles. Check your connection or retry.</p>
+                    <button class="btn-retry" onclick="retryFetchingFeed()">Try Again</button>
+                </div>
+
+                <!-- Infinite Scroll spinner -->
+                <div id="loading" class="spinner-container" style="display:none;">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== BACK TO TOP BUTTON ===== -->
+    <button id="backToTopBtn" class="btn-back-to-top" aria-label="Scroll to top">↑</button>
+
+    <!-- ===== FOOTER SECTION ===== -->
+    <footer class="site-footer">
+        <div class="container footer-inner-grid">
+            <div class="footer-brand-column">
+                <div class="footer-logo">NEWS DAILY</div>
+                <p class="footer-description">Bringing you premium, verified journalism, real-time stories, and analytical coverage from across the globe.</p>
+            </div>
+            <div class="footer-nav-column">
+                <h4 class="footer-column-title">Categories</h4>
+                <ul class="footer-links-list">
+                    <li><a href="#" onclick="onNavItemClick('India')">Home</a></li>
+                    <li><a href="#" onclick="onNavItemClick('World')">World News</a></li>
+                    <li><a href="#" onclick="onNavItemClick('Business')">Business</a></li>
+                    <li><a href="#" onclick="onNavItemClick('Technology')">Technology</a></li>
+                    <li><a href="#" onclick="onNavItemClick('Science')">Science</a></li>
+                    <li><a href="#" onclick="onNavItemClick('Sports')">Sports</a></li>
+                </ul>
+            </div>
+            <div class="footer-nav-column">
+                <h4 class="footer-column-title">Support & Company</h4>
+                <ul class="footer-links-list">
+                    <li><a href="#" onclick="handleEpaperClick()">e-Paper Edition</a></li>
+                    <li><a href="#" onclick="handleSubscribeAlert()">Subscription Plans</a></li>
+                    <li><a href="#" onclick="handleAuthAction()">My Account</a></li>
+                    <li><a href="#" onclick="showPrivacyAlert()">Privacy Policy</a></li>
+                    <li><a href="#" onclick="showTermsAlert()">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter-column">
+                <h4 class="footer-column-title">Get Daily Briefs</h4>
+                <p class="footer-description">Subscribe to our daily morning updates delivered right to your inbox.</p>
+                <form id="footerNewsletterForm" class="newsletter-form" onsubmit="handleNewsletterSubmit(event)">
+                    <input type="email" id="newsletterEmail" class="newsletter-input-field" placeholder="yourname@gmail.com" required aria-label="Newsletter email">
+                    <button type="submit" class="btn-newsletter-submit">Subscribe</button>
+                </form>
+            </div>
+        </div>
+        <div class="container footer-bottom-block">
+            <span>© 2026 News Daily Publication Group. All rights reserved.</span>
+            <span>Made with Integrity</span>
+        </div>
+    </footer>
+
+    <!-- ===== TOAST CONTAINER ===== -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- ===== CARD TEMPLATE ===== -->
+    <template id="template-news-card">
+        <article class="news-card">
+            <div class="card-img-wrapper">
+                <img src="logo.jpg" alt="news-image" id="news-img" loading="lazy">
+            </div>
+            <div class="card-content-block">
+                <h4 class="card-title-text" id="news-title">Headline placeholder text</h4>
+                <p class="card-desc-text" id="news-desc">Description snippet goes here.</p>
+                
+                <div class="card-footer-meta">
+                    <div class="card-meta-row-1">
+                        <span id="news-source">Source Name</span>
+                        <span id="reading-time">3 min read</span>
+                    </div>
+                    <div class="card-meta-row-2">
+                        <div class="card-actions-group">
+                            <!-- Like button -->
+                            <button class="card-action-btn like-btn" aria-label="Like article">
+                                ❤️ <span class="likes-counter">0</span>
+                            </button>
+                            <!-- Bookmark button -->
+                            <button class="card-action-btn bookmark-btn" aria-label="Bookmark article">
+                                🔖
+                            </button>
+                            <!-- Copy Link button -->
+                            <button class="card-action-btn copy-btn" aria-label="Copy link">
+                                🔗
+                            </button>
+                            <!-- Share button -->
+                            <button class="card-action-btn share-btn" aria-label="Share article">
+                                📤
+                            </button>
+                        </div>
+                        <span id="premiumBadge" class="premium-label-badge" style="display: none;">PREMIUM</span>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+</html>

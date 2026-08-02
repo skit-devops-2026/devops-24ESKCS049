@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - News Daily</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+<div class="auth-card-wrapper">
+    <div class="auth-card-header">
+        <h1 class="auth-card-title">Create Account</h1>
+        <p class="auth-card-tagline">Sign up to read premium verified news</p>
+    </div>
+
+    <div class="auth-form-group">
+        <label for="signupName" class="auth-label">Full Name</label>
+        <input type="text" id="signupName" class="auth-input-field" placeholder="John Doe" required autocomplete="name">
+    </div>
+
+    <div class="auth-form-group">
+        <label for="signupEmail" class="auth-label">Email Address</label>
+        <input type="email" id="signupEmail" class="auth-input-field" placeholder="you@example.com" required autocomplete="email">
+    </div>
+
+    <div class="auth-form-group">
+        <label for="signupPassword" class="auth-label">Password</label>
+        <input type="password" id="signupPassword" class="auth-input-field" placeholder="••••••••" required autocomplete="new-password">
+        <div class="password-strength-meter">
+            <div id="strengthBar" class="password-strength-fill"></div>
+        </div>
+        <span id="strengthText" style="font-size: 0.75rem; color: var(--text-muted);"></span>
+    </div>
+
+    <button onclick="signup()" class="btn-auth-action">Sign Up</button>
+
+    <p class="auth-footer-redirect">Already have an account? <a href="login.html">Login</a></p>
+</div>
+
+<!-- Simple Toast container inside auth pages -->
+<div id="toastContainer" class="toast-container"></div>
+
+<script>
+    // Theme support on auth pages
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    const passwordInput = document.getElementById('signupPassword');
+    const strengthBar = document.getElementById('strengthBar');
+    const strengthText = document.getElementById('strengthText');
+
+    passwordInput.addEventListener('input', () => {
+        const val = passwordInput.value;
+        let score = 0;
+        if (!val) {
+            strengthBar.style.width = '0%';
+            strengthText.innerText = '';
+            return;
+        }
+        if (val.length >= 6) score++;
+        if (val.length >= 10) score++;
+        if (/[A-Z]/.test(val)) score++;
+        if (/[0-9]/.test(val)) score++;
+        if (/[^A-Za-z0-9]/.test(val)) score++;
+
+        let pct = (score / 5) * 100;
+        strengthBar.style.width = pct + '%';
+
+        if (score <= 2) {
+            strengthBar.style.backgroundColor = '#ef4444';
+            strengthText.innerText = 'Weak';
+        } else if (score <= 4) {
+            strengthBar.style.backgroundColor = '#f59e0b';
+            strengthText.innerText = 'Moderate';
+        } else {
+            strengthBar.style.backgroundColor = '#10b981';
+            strengthText.innerText = 'Strong';
+        }
+    });
+
+    function showToast(message, type = 'error') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast-message ${type === 'success' ? 'success' : ''}`;
+        toast.innerHTML = `
+            <span class="toast-text">${message}</span>
+            <span class="toast-close-btn" onclick="this.parentElement.remove()">×</span>
+        `;
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    }
+
+    function signup() {
+        const name = document.getElementById("signupName").value.trim();
+        const email = document.getElementById("signupEmail").value.trim();
+        const password = document.getElementById("signupPassword").value;
+
+        if (!name || !email || !password) {
+            showToast("Please fill in all fields.");
+            return;
+        }
+
+        // Email validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showToast("Please enter a valid email address.");
+            return;
+        }
+
+        // Password minimum length check
+        if (password.length < 6) {
+            showToast("Password must be at least 6 characters.");
+            return;
+        }
+
+        // Sanitize name and email values (basic XSS mitigation)
+        const sanitizedName = name.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        const sanitizedEmail = email.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+        const user = { name: sanitizedName, email: sanitizedEmail, password: password };
+        localStorage.setItem("user", JSON.stringify(user));
+
+        showToast("Account created successfully! Redirecting...", "success");
+        setTimeout(() => {
+            window.location.href = "login.html";
+        }, 1500);
+    }
+</script>
+
+</body>
+</html>

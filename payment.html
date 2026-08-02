@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Access - News Daily</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+<div class="auth-card-wrapper">
+    <div class="auth-card-header">
+        <h1 class="auth-card-title">Premium Access</h1>
+        <p class="auth-card-tagline">Unlock unlimited access to all news articles, columns, and e-Papers</p>
+    </div>
+
+    <div class="payment-price-card">
+        <span style="font-size: 0.8rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted);">Premium Monthly Plan</span>
+        <div class="payment-price-text">₹99 <span style="font-size: 1rem; font-weight: 500; color: var(--text-secondary);">/ month</span></div>
+    </div>
+
+    <!-- Mock Card Details Form for Premium Aesthetics -->
+    <div class="auth-form-group">
+        <label for="cardNumber" class="auth-label">Card Number</label>
+        <input type="text" id="cardNumber" class="auth-input-field" placeholder="1234 5678 1234 5678" maxlength="19" required>
+    </div>
+
+    <div style="display: flex; gap: 16px;">
+        <div class="auth-form-group" style="flex: 1;">
+            <label for="cardExpiry" class="auth-label">Expiry Date</label>
+            <input type="text" id="cardExpiry" class="auth-input-field" placeholder="MM/YY" maxlength="5" required>
+        </div>
+        <div class="auth-form-group" style="flex: 1;">
+            <label for="cardCvv" class="auth-label">CVV</label>
+            <input type="password" id="cardCvv" class="auth-input-field" placeholder="•••" maxlength="3" required>
+        </div>
+    </div>
+
+    <button onclick="makePayment()" class="btn-auth-action">Pay & Subscribe</button>
+
+    <p class="auth-footer-redirect"><a href="index.html" style="color: var(--text-secondary); text-decoration: underline;">Cancel and return to home</a></p>
+</div>
+
+<div id="toastContainer" class="toast-container"></div>
+
+<script>
+    // Theme support on auth pages
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    // Simple formatting for mock input fields
+    document.getElementById('cardNumber').addEventListener('input', (e) => {
+        let v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        let matches = v.match(/\d{4,16}/g);
+        let match = matches && matches[0] || '';
+        let parts = [];
+        for (let i=0, len=match.length; i<len; i+=4) {
+            parts.push(match.substring(i, i+4));
+        }
+        if (parts.length > 0) {
+            e.target.value = parts.join(' ');
+        } else {
+            e.target.value = v;
+        }
+    });
+
+    document.getElementById('cardExpiry').addEventListener('input', (e) => {
+        let v = e.target.value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+        if (v.length >= 2) {
+            e.target.value = v.substring(0, 2) + '/' + v.substring(2, 4);
+        } else {
+            e.target.value = v;
+        }
+    });
+
+    document.getElementById('cardCvv').addEventListener('input', (e) => {
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+    });
+
+    function showToast(message, type = 'error') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast-message ${type === 'success' ? 'success' : ''}`;
+        toast.innerHTML = `
+            <span class="toast-text">${message}</span>
+            <span class="toast-close-btn" onclick="this.parentElement.remove()">×</span>
+        `;
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    }
+
+    function makePayment() {
+        const cardNumber = document.getElementById("cardNumber").value;
+        const cardExpiry = document.getElementById("cardExpiry").value;
+        const cardCvv = document.getElementById("cardCvv").value;
+
+        if (cardNumber.replace(/\s/g, '').length < 16) {
+            showToast("Please enter a valid 16-digit card number.");
+            return;
+        }
+        if (cardExpiry.length < 5) {
+            showToast("Please enter card expiry date (MM/YY).");
+            return;
+        }
+        if (cardCvv.length < 3) {
+            showToast("Please enter a valid 3-digit CVV.");
+            return;
+        }
+
+        showToast("Payment Successful! Activating Premium Plan...", "success");
+
+        localStorage.setItem("paidUser", "true");
+
+        const article = localStorage.getItem("pendingArticle");
+        setTimeout(() => {
+            if (article) {
+                localStorage.removeItem("pendingArticle");
+                window.open(article, "_blank");
+                window.location.href = "index.html";
+            } else {
+                window.location.href = "index.html";
+            }
+        }, 1500);
+    }
+</script>
+
+</body>
+</html>

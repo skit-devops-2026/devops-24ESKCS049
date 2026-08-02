@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - News Daily</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="auth-body">
+
+<div class="auth-card-wrapper">
+    <div class="auth-card-header">
+        <h1 class="auth-card-title">Welcome Back</h1>
+        <p class="auth-card-tagline">Log in to access your dashboard and premium articles</p>
+    </div>
+
+    <div class="auth-form-group">
+        <label for="loginEmail" class="auth-label">Email Address</label>
+        <input type="email" id="loginEmail" class="auth-input-field" placeholder="you@example.com" required autocomplete="email">
+    </div>
+
+    <div class="auth-form-group">
+        <label for="loginPassword" class="auth-label">Password</label>
+        <input type="password" id="loginPassword" class="auth-input-field" placeholder="••••••••" required autocomplete="current-password">
+    </div>
+
+    <button onclick="login()" class="btn-auth-action">Log In</button>
+
+    <p class="auth-footer-redirect">Don't have an account? <a href="signup.html">Sign Up</a></p>
+</div>
+
+<div id="toastContainer" class="toast-container"></div>
+
+<script>
+    // Theme support on auth pages
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+
+    function showToast(message, type = 'error') {
+        const container = document.getElementById('toastContainer');
+        const toast = document.createElement('div');
+        toast.className = `toast-message ${type === 'success' ? 'success' : ''}`;
+        toast.innerHTML = `
+            <span class="toast-text">${message}</span>
+            <span class="toast-close-btn" onclick="this.parentElement.remove()">×</span>
+        `;
+        container.appendChild(toast);
+        setTimeout(() => toast.remove(), 4000);
+    }
+
+    function login() {
+        const email = document.getElementById("loginEmail").value.trim();
+        const password = document.getElementById("loginPassword").value;
+
+        if (!email || !password) {
+            showToast("Please enter both email and password.");
+            return;
+        }
+
+        const storedUser = JSON.parse(localStorage.getItem("user"));
+
+        if (!storedUser) {
+            showToast("No account found with this email. Please sign up first.");
+            return;
+        }
+
+        if (email === storedUser.email && password === storedUser.password) {
+            localStorage.setItem("loggedInUser", email);
+            showToast("Login successful! Redirecting...", "success");
+            setTimeout(() => {
+                window.location.href = "index.html";
+            }, 1500);
+        } else {
+            showToast("Invalid email or password.");
+        }
+    }
+</script>
+
+</body>
+</html>
