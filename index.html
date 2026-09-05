@@ -8,7 +8,7 @@
     <meta name="description" content="Read real-time verified breaking news, top global stories, trends, and analytical reports on News Daily.">
     <meta name="keywords" content="news, breaking news, latest news, politics, sports, entertainment, technology, science">
     
-    <!-- Open Graph tags for SEO -->
+   
     <meta property="og:title" content="News Daily - Latest & Breaking News Headlines">
     <meta property="og:description" content="Read real-time verified breaking news, top global stories, trends, and analytical reports on News Daily.">
     <meta property="og:type" content="website">
@@ -18,12 +18,11 @@
 </head>
 <body>
 
-    <!-- Reading Progress Bar -->
+    
     <div class="reading-progress-container">
         <div id="readingProgress" class="reading-progress-bar"></div>
     </div>
 
-    <!-- ===== TOP INFO BAR ===== -->
     <header class="top-bar">
         <div class="container top-bar-inner">
             <div class="top-left-group">
@@ -32,12 +31,12 @@
             </div>
             <div class="top-right-group">
                 <span id="userStatusLink" class="auth-nav-link" onclick="handleAuthAction()">Login</span>
-                <button id="subscribeBtn" class="btn-subscribe">SUBSCRIBE</button>
+                <button id="subscribeBtn" class="btn-subscribe">subscribe</button>
             </div>
         </div>
     </header>
 
-    <!-- ===== LOGO & BRANDING SECTION ===== -->
+    
     <section class="logo-section">
         <div class="container logo-container">
             <a href="index.html" class="logo-brand-link">
@@ -50,7 +49,7 @@
         </div>
     </section>
 
-    <!-- ===== STICKY NAV & SEARCH SECTION ===== -->
+  
     <div class="sticky-nav-wrapper" id="stickyNavWrapper">
         <nav class="container category-nav" aria-label="Main Navigation">
             <div class="nav-left-controls">
@@ -58,7 +57,7 @@
                 <button id="search-icon" class="nav-search-trigger" aria-label="Search articles">🔍</button>
             </div>
 
-            <!-- Horizontal Desktop categories -->
+           
             <ul class="nav-links-list" id="navLinksList">
                 <li class="nav-item-link active" onclick="onNavItemClick('general')">Home</li>
                 <li class="nav-item-link" onclick="onNavItemClick('world')">World</li>
@@ -71,26 +70,26 @@
             </ul>
 
             <div class="nav-right-controls">
-                <!-- Bookmarks / Notification button -->
+               
                 <button id="bookmarksBtn" class="bookmarks-dropdown-trigger" aria-label="View Bookmarks" title="Bookmarks & Alerts">
                     🔔
                     <span id="bookmarksCount" class="bookmarks-badge">0</span>
                 </button>
-                <!-- Theme Toggle Button -->
+               
                 <button id="themeToggleBtn" class="theme-toggle-btn" aria-label="Toggle dark mode" title="Toggle Theme">🌙</button>
             </div>
 
-            <!-- Search Dropdown Box -->
+            
             <div id="searchOverlay" class="search-overlay-container">
                 <div class="search-input-wrapper">
                     <input type="text" id="searchText" class="search-bar-input" placeholder="Search news topics, terms, keywords..." autocomplete="off">
                     <button id="searchButton" class="btn-search-exec">Search</button>
                 </div>
-                <!-- Search Suggestions Dropdown -->
+                
                 <div id="suggestionsBox" class="search-suggestions-box"></div>
             </div>
 
-            <!-- Bookmarks Dropdown List -->
+            
             <div id="bookmarksPanel" class="bookmarks-panel">
                 <div class="bookmarks-panel-header">Bookmarked Articles & Notifications</div>
                 <ul id="bookmarksList" class="bookmarks-list">
@@ -98,7 +97,7 @@
                 </ul>
             </div>
 
-            <!-- Mega Menu -->
+           
             <div id="megaMenu" class="mega-menu">
                 <div class="container mega-menu-inner">
                     <div class="mega-menu-left">
