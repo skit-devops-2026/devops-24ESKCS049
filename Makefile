@@ -11,16 +11,17 @@
 .PHONY: install test build run docker-build docker-up
 
 install:
-	@echo "TODO: install dependencies" && exit 1
+	@echo "No external dependencies required"
 
 test:
-	@echo "TODO: run the test suite" && exit 1
+	@echo "Running tests..."
+	@node tests/test.js
 
 build:
-	@echo "TODO: build the project" && exit 1
+	@echo "Static website - no build step required"
 
 run:
-	@echo "TODO: start the app locally" && exit 1
+	@echo "Open index.html in a browser"
 
 # Needed from M4 onwards
 docker-build:
