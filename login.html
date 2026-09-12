@@ -74,7 +74,15 @@
             showToast("Invalid eamil or passsword . please try again.");
         }
     }
+
+document.addEventListener("keydown", function(e){
+    if(e.key === "Enter"){
+        login();
+    }
+});
 </script>
 
 </body>
 </html>
+
+

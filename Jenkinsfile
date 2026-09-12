@@ -2,15 +2,27 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Checkout') {
             steps {
-                bat 'python -m pip install pytest'
+                checkout scm
+            }
+        }
+
+        stage('Install') {
+            steps {
+                sh 'make install'
             }
         }
 
         stage('Test') {
             steps {
-                bat 'python -m pytest'
+                sh 'make test'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'make build'
             }
         }
     }

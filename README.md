@@ -8,7 +8,7 @@
 
 ## About
 
-NEWS is a daily news website that provides users with the latest news and updates in an easy-to-read format. It is designed to present news content through a simple, responsive, and user-friendly web interface.
+NEWS is a Daily news Website that provides users with the latest news and updates in an easy-to-read format. It is designed to present news content through a simple, responsive, and user-friendly web interface.
 
 ## Tech stack
 
@@ -34,3 +34,6 @@ make run
 
 ## CI Pipeline
 This project uses Jenkins for Continuous Integration (CI).
+
+## Contact Page
+Added contact page documentation.
