@@ -76,5 +76,5 @@ jobs:
   #     # ... and the same for ./frontend
 
   # ---------------------------------------------------------------------------
-  # M5 — Deployment. Add a deploy job here.
+  # M5 — Deployment. Add a deploy job Here.
   # ---------------------------------------------------------------------------
