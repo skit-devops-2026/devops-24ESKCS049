@@ -28,7 +28,7 @@ jobs:
   # continue-on-error or "|| true" to make it green.
   # ---------------------------------------------------------------------------
 
-   build-and-test:
+  build-and-test:
     name: Build and test
     runs-on: ubuntu-latest
 
