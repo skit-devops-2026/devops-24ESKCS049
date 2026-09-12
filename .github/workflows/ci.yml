@@ -28,22 +28,26 @@ jobs:
   # continue-on-error or "|| true" to make it green.
   # ---------------------------------------------------------------------------
 
-  # build-and-test:
-  #   name: Build and test
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #
-  #     # Set up whichever runtime you need, for example:
-  #     # - uses: actions/setup-node@v4
-  #     #   with: { node-version: '20', cache: 'npm' }
-  #     # - uses: actions/setup-python@v5
-  #     #   with: { python-version: '3.12' }
-  #
-  #     - run: make install
-  #     - run: make test
-  #     - run: make build
+  build-and-test:
+    name: Build and test
+    runs-on: ubuntu-latest
 
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: make install
+
+      - name: Run tests
+        run: make test
+
+      - name: Build project
+        run: make build
   # ---------------------------------------------------------------------------
   # M4 — Containerization. Uncomment and complete when you get there.
   # The push to the registry is what proves your build actually ran, so it is
@@ -72,5 +76,5 @@ jobs:
   #     # ... and the same for ./frontend
 
   # ---------------------------------------------------------------------------
-  # M5 — Deployment. Add a deploy job here.
+  # M5 — Deployment. Add a deploy job Here.
   # ---------------------------------------------------------------------------
