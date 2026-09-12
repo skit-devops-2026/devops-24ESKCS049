@@ -31,3 +31,6 @@ make run
 ## Health endpoint
 
 `GET /health` returns the running commit SHA. See `Makefile` and the milestone sheet for why this is required.
+
+## Contact Page
+Added contact page documentation.
