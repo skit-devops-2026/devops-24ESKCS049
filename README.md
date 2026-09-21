@@ -37,3 +37,5 @@ This project uses Jenkins for Continuous Integration (CI).
 
 ## Contact Page
 Added contact page documentation.
+
+CI refresh
