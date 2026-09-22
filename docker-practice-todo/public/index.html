@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Docker Practice - To-Do List</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 480px;
+      margin: 40px auto;
+    }
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+    }
+    button {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<h2>My To-Do List</h2>
+
+<input id="text" placeholder="What do you need to do?" />
+<button onclick="addTodo()">Add</button>
+
+<ul id="list"></ul>
+
+<script>
+async function loadTodos() {
+  const res = await fetch("/todos");
+  const todos = await res.json();
+
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+
+  todos.forEach((t) => {
+    const li = document.createElement("li");
+    li.innerHTML =
+      `<span>${t.text}</span>
+       <button onclick="removeTodo('${t._id}')">Delete</button>`;
+    list.appendChild(li);
+  });
+}
+
+async function addTodo() {
+  const input = document.getElementById("text");
+  if (!input.value.trim()) return;
+
+  await fetch("/todos", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text: input.value })
+  });
+
+  input.value = "";
+  loadTodos();
+}
+
+async function removeTodo(id) {
+  await fetch(`/todos/${id}`, { method: "DELETE" });
+  loadTodos();
+}
+
+loadTodos();
+</script>
+
+</body>
+</html>
