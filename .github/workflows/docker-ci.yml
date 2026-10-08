@@ -17,3 +17,6 @@ jobs:
 
       - name: Run tests inside the container
         run: docker run --rm todo-practice npm test
+
+      - name: Tag the image with the commit SHA
+        run: docker tag todo-practice todo-practice:${{ github.sha }}
