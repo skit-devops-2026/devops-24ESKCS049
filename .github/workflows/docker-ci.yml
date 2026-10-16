@@ -32,4 +32,4 @@ jobs:
         run: docker tag todo-practice ghcr.io/skit-devops-2026/todo-practice:${{ github.sha }}
 
       - name: Push to GHCR
-        run: docker push ghcr.io/${{ github.actor }}/todo-practice:${{ github.sha }}
+        run: docker push ghcr.io/skit-devops-2026/todo-practice:${{ github.sha }}
